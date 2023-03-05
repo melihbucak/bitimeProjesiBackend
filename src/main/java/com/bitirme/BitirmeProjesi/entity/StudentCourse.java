@@ -3,7 +3,7 @@ package com.bitirme.BitirmeProjesi.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-
+@IdClass(StudentCourseKey.class)
 @Entity
 @Table(name = "student_course")
 public class StudentCourse implements Serializable {
@@ -24,6 +24,4 @@ public class StudentCourse implements Serializable {
         this.ogrenci = ogrenci;
         this.dersler = dersler;
     }
-
-    // getters and setters
 }

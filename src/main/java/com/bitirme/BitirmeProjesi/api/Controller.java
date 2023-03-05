@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -68,7 +69,8 @@ public class Controller {
     }
 
     @PostMapping("/students/{studentId}/courses")
-    public ResponseEntity<Object> addCourseToStudent(@PathVariable Long studentId, @RequestBody Long ders_Kodu) {
+    public ResponseEntity<Object> addCourseToStudent(@PathVariable Long studentId, @RequestBody Map<String, Long> request) {
+        Long ders_Kodu = request.get("ders_Kodu");
         Optional<Ogrenci> student = studentRepository.findById(studentId);
         Optional<Dersler> course = courseRepository.findById(ders_Kodu);
 
