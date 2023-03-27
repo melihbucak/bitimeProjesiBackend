@@ -1,5 +1,6 @@
 package com.bitirme.BitirmeProjesi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -15,7 +16,7 @@ public class StudentCourse implements Serializable {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("ders_Kodu")
+    @MapsId("dersKodu")
     private Dersler dersler;
 
     public StudentCourse() {}
@@ -24,4 +25,5 @@ public class StudentCourse implements Serializable {
         this.ogrenci = ogrenci;
         this.dersler = dersler;
     }
+
 }

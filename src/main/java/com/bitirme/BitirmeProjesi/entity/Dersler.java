@@ -6,9 +6,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
-
-import java.util.List;
 
 @Data
 @Entity
@@ -19,8 +16,8 @@ public class Dersler {
     @Id
     @SequenceGenerator(name = "SEQ_ders_Kodu", sequenceName = "SEQ_ders_Kodu", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ders_Kodu")
-    @Column(name = "ders_Kodu", unique = true, nullable = false)
-    private Long ders_kodu;
+    @Column(name = "dersKodu", unique = true, nullable = false)
+    private Long dersKodu;
 
     @Column(name = "dersAdi")
     private String dersAdi;
@@ -30,8 +27,4 @@ public class Dersler {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JsonBackReference
     private Ogretmen ogretmen;
-
-//    @ManyToMany(mappedBy = "derslers", fetch = FetchType.LAZY)
-//    private List<Ogrenci> ogrencis;
-
 }

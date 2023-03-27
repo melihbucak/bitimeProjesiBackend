@@ -1,18 +1,16 @@
 package com.bitirme.BitirmeProjesi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "ogrenci")
 public class Ogrenci {
     @Id
@@ -24,17 +22,4 @@ public class Ogrenci {
     private String ogrenciAdi;
     @Column(name = "ogrenciSoyadi")
     private String ogrenciSoyadi;
-
-
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinTable(name = "ogrenci_ders_tbl",
-//            joinColumns = {
-//                    @JoinColumn(name = "student_Id", referencedColumnName = "ogrenci_Id")
-//            },
-//            inverseJoinColumns = {
-//                    @JoinColumn(name = "course_Id", referencedColumnName = "ders_kodu")
-//            })
-//    private List<Dersler> derslers;
-
-
 }

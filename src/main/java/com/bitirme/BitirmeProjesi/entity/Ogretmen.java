@@ -10,6 +10,8 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "ogretmen")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
 public class Ogretmen {
     @Id
     @SequenceGenerator(name = "SEQ_ogretmen_Id", sequenceName = "SEQ_ogretmen_Id", allocationSize = 1)
