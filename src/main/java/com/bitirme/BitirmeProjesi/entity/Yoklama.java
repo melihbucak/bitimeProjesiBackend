@@ -1,4 +1,5 @@
 package com.bitirme.BitirmeProjesi.entity;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -8,17 +9,18 @@ import java.time.LocalDate;
 @Table(name = "yoklama")
 public class Yoklama {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "SEQ_yoklama_id_seq", sequenceName = "SEQ_yoklama_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_yoklama_id_seq")
     @Column(name = "id")
     private int id;
 
     @ManyToOne
     @JoinColumn(name = "fk_ogrenci_Id",referencedColumnName = "ogrenci_Id")
-    private Ogrenci ogrenci;
+    private Student student;
 
     @ManyToOne
     @JoinColumn(name = "fk_ders_kodu",referencedColumnName = "dersKodu")
-    private Dersler dersKodu;
+    private Course dersKodu;
 
     @Column(name = "tarih")
     private LocalDate tarih;
@@ -32,16 +34,5 @@ public class Yoklama {
     @Column(name = "izin_sayisi")
     private int izinSayisi;
 
-    public Yoklama() {
-    }
-
-    public Yoklama(Ogrenci ogrenci, Dersler dersKodu, LocalDate tarih, Boolean katilimDurumu, int devamsizlikSayisi, int izinSayisi) {
-        this.ogrenci = ogrenci;
-        this.dersKodu = dersKodu;
-        this.tarih = tarih;
-        this.katilimDurumu = katilimDurumu;
-        this.devamsizlikSayisi = devamsizlikSayisi;
-        this.izinSayisi = izinSayisi;
-    }
 }
 

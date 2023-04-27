@@ -3,14 +3,14 @@ package com.bitirme.BitirmeProjesi.entity;
 import java.io.Serializable;
 
 public class StudentCourseKey implements Serializable {
-    private Long ogrenci;
+    private Long student;
 
-    private Long dersler;
+    private Long course;
 
     public StudentCourseKey() {}
 
     public StudentCourseKey(Long ogrenci, Long dersler) {
-        this.ogrenci = ogrenci;
-        this.dersler = dersler;
+        this.student = ogrenci;
+        this.course = dersler;
     }
 }

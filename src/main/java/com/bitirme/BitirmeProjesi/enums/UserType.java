@@ -1,4 +1,4 @@
-package com.bitirme.BitirmeProjesi.Enum;
+package com.bitirme.BitirmeProjesi.enums;
 
 public enum UserType {
     ADMIN,

@@ -1,6 +1,5 @@
 package com.bitirme.BitirmeProjesi.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -12,18 +11,18 @@ public class StudentCourse implements Serializable {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("ogrenci_Id")
-    private Ogrenci ogrenci;
+    private Student student;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("dersKodu")
-    private Dersler dersler;
+    private Course course;
 
     public StudentCourse() {}
 
-    public StudentCourse(Ogrenci ogrenci, Dersler dersler) {
-        this.ogrenci = ogrenci;
-        this.dersler = dersler;
+    public StudentCourse(Student student, Course course) {
+        this.student = student;
+        this.course = course;
     }
 
 }
