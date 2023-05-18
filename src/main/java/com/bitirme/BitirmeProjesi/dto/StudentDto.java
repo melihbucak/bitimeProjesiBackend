@@ -4,9 +4,10 @@ import lombok.Data;
 
 @Data
 public class StudentDto {
-    private Long ogrenci_Id;
+    private Long id;
     private String ogrenciAdi;
     private String ogrenciSoyadi;
     private Long ogrenci_no;
     private Long ogrenciTC;
+    private Long userid;
 }

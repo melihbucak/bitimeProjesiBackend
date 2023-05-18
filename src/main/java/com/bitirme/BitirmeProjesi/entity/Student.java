@@ -19,8 +19,8 @@ public class Student {
     @Id
     @SequenceGenerator(name = "SEQ_ogrenci", sequenceName = "SEQ_ogrenci", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ogrenci")
-    @Column(name = "ogrenci_Id", unique = true, nullable = false)
-    private Long ogrenci_Id;
+    @Column(name = "id", unique = true, nullable = false)
+    private Long id;
     @Column(name = "ogrenciAdi",nullable = false)
     private String ogrenciAdi;
     @Column(name = "ogrenciSoyadi",nullable = false)
@@ -30,8 +30,8 @@ public class Student {
     @Column(name = "ogrenci_tc",unique = true,nullable = false)
     private Long ogrenci_TC;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    @JsonBackReference
+//    @JsonBackReference
     private User user;
 }

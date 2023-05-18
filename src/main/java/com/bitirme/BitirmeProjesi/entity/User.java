@@ -28,8 +28,8 @@ public class User {
     @Column(name = "role", nullable = false)
     private UserType role;
 
-    @JsonManagedReference
-    @OneToOne(mappedBy = "user")
-    private Student student;
+//    @JsonManagedReference
+//    @OneToOne(mappedBy = "user")
+//    private Student student;
 
 }

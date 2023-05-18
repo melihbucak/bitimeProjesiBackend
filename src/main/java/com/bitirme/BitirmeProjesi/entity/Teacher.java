@@ -1,3 +1,4 @@
+
 package com.bitirme.BitirmeProjesi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -16,8 +17,8 @@ public class Teacher {
     @Id
     @SequenceGenerator(name = "SEQ_ogretmen_id", sequenceName = "SEQ_ogretmen_id", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ogretmen_id")
-    @Column(name = "ogretmen_Id", unique = true, nullable = false)
-    private Long ogretmen_Id;
+    @Column(name = "id", unique = true, nullable = false)
+    private Long id;
     @Column(name = "ogretmenAdi")
     private String ogretmenAdi;
     @Column(name = "ogretmenSoyadi")

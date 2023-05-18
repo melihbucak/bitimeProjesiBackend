@@ -1,3 +1,4 @@
+
 package com.bitirme.BitirmeProjesi.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -19,7 +20,7 @@ public class Course {
     private String dersAdi;
 
     @ManyToOne()
-    @JoinColumn(name = "fk_Ogretmen_Id",referencedColumnName = "ogretmen_Id")
+    @JoinColumn(name = "fk_Ogretmen_Id",referencedColumnName = "id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JsonBackReference
     private Teacher teacher;

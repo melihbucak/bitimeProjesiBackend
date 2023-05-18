@@ -53,7 +53,7 @@ public class StudentTest {
 
 
         assertNotNull(actual);
-        assertEquals(studentToSave.getOgrenci_Id(),actual.getOgrenci_Id());
+        assertEquals(studentToSave.getId(),actual.getId());
         assertEquals(studentToSave.getOgrenci_no(),actual.getOgrenci_no());
         assertEquals(studentToSave.getOgrenci_TC(), actual.getOgrenci_TC());
         assertEquals(studentToSave.getOgrenciAdi(),actual.getOgrenciAdi());

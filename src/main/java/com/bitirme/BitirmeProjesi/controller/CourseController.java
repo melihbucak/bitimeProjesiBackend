@@ -1,5 +1,8 @@
 package com.bitirme.BitirmeProjesi.controller;
 
+import com.bitirme.BitirmeProjesi.dto.CourseDto;
+import com.bitirme.BitirmeProjesi.dto.StudentDto;
+import com.bitirme.BitirmeProjesi.dto.TeacherDto;
 import com.bitirme.BitirmeProjesi.entity.Course;
 import com.bitirme.BitirmeProjesi.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +27,23 @@ public class CourseController {
 
     @PostMapping("/saveCourse")
     public ResponseEntity<Course> saveDers(@RequestBody Course course) {
-
         Course course1 = courseService.saveDers(course);
         return new ResponseEntity<>(course1, HttpStatus.CREATED);
     }
-//    @GetMapping("/saveDeneme/{dersAdi}/{ogretmenId}")
-//    public ResponseEntity<Dersler> saveDeneme(@PathVariable("dersAdi") String dersAdi, @PathVariable("ogretmenId") Long ogretmenId) {
-//        Dersler dersler = new Dersler();
-//        dersler.setDersAdi(dersAdi);
-//        dersler.setOgretmen(teacherRepository.getById(ogretmenId));
-//        Dersler dersler1 = userService.saveDers(dersler);
-//        return new ResponseEntity<>(dersler1, HttpStatus.CREATED);
-//    }
+
+    @PutMapping("/updateCourse")
+    public ResponseEntity updateTeacher(@RequestBody CourseDto dto) {
+        return courseService.updateCourseFromDto(dto);
+    }
+
+    @PostMapping("/deleteCourse")
+    public boolean deleteStudent(@RequestBody CourseDto dto) {
+        return courseService.deleteCourse(dto);
+    }
+
+    @GetMapping("/getCourseByTeacher/{id}")
+    public List<Course> getCourseByTeacherId(@PathVariable("id") Long id) {
+        return courseService.getCourseByTeacherId(id);
+    }
+
 }
