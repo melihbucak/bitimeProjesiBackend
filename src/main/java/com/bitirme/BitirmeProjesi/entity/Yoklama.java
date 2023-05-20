@@ -27,5 +27,8 @@ public class Yoklama {
 
     @Column(name = "izin_sayisi")
     private int izinSayisi;
+
+    @Column(name = "yoklamaDurumu")
+    private boolean yoklamaDurumu;
 }
 

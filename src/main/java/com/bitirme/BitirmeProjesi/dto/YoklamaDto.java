@@ -9,4 +9,6 @@ public class YoklamaDto {
     private int izinSayisi;
     private Long studentId;
     private Long dersKodu;
+    private boolean yoklamaDurumu;
+
 }

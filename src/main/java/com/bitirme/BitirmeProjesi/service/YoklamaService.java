@@ -23,12 +23,24 @@ public class YoklamaService {
     @Autowired
     private YoklamaRepository yoklamaRepository;
 
-    //    public Yoklama saveYoklama(Yoklama yoklama) {
-//        LocalDate localDate = LocalDate.now();
-//        yoklama.setTarih(localDate);
-//
-//        return yoklamaRepository.save(yoklama);
-//    }
+    //yoklama kaydedildi.
+    public Yoklama saveYoklama(YoklamaDto dto) {
+        try {
+            List<Yoklama> oYoklama = yoklamaRepository.findByStudentId(dto.getStudentId());
+            for (Yoklama yoklama : oYoklama) {
+                if (yoklama.getDersKodu().getDersKodu().equals(dto.getDersKodu())) {
+                    if (yoklama.isYoklamaDurumu() == true) {
+                        yoklama.setDevamsizlikSayisi(dto.getDevamsizlikSayisi());
+                        return yoklamaRepository.save(yoklama);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Yoklama kaydedilemedi.", e);
+        }
+        return null;
+    }
+
     public List<Yoklama> getStudentAttendance(Long id) {
         return yoklamaRepository.findByStudentId(id);
     }
@@ -52,6 +64,39 @@ public class YoklamaService {
         return new ResponseEntity(hm, HttpStatus.BAD_REQUEST);
     }
 
+    public boolean setYoklamaDurumuForTeacher(YoklamaDto dto) {
+        try {
+            List<Yoklama> yoklama1 = yoklamaRepository.findByDersKodu_DersKodu(dto.getDersKodu());
+            for (Yoklama yoklama : yoklama1) {
+                if (yoklama.getDersKodu().getDersKodu().equals(dto.getDersKodu())) {
+                    yoklama.setYoklamaDurumu(dto.isYoklamaDurumu());
+                    yoklamaRepository.save(yoklama);
+                }
+            }
+            return true;
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean getYoklamaDurumu(YoklamaDto dto) {
+        try {
+            boolean status = false;
+            List<Yoklama> oYoklama = yoklamaRepository.findByStudentId(dto.getStudentId());
+            for (Yoklama yoklama : oYoklama) {
+                if (yoklama.getDersKodu().getDersKodu().equals(dto.getDersKodu())) {
+                    status = yoklama.isYoklamaDurumu();
+                }
+            }
+            return status;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     public List<Yoklama> getAllAttendanceInfo() {
         return yoklamaRepository.findAll();

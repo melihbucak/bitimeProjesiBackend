@@ -18,11 +18,10 @@ public class YoklamaController {
     @Autowired
     private YoklamaService yoklamaService;
 
-    //    @PostMapping("/yoklama")
-//    public ResponseEntity<Yoklama> saveYoklama(@RequestBody Yoklama yoklama) throws Exception {
-//        Yoklama yoklama1 = yoklamaService.saveYoklama(yoklama);
-//        return new ResponseEntity<>(yoklama1, HttpStatus.CREATED);
-//    }
+    @PostMapping("/yoklama")
+    public Yoklama saveYoklama(@RequestBody YoklamaDto dto) throws Exception {
+        return yoklamaService.saveYoklama(dto);
+    }
     @GetMapping("/{id}")
     public ResponseEntity<List<Yoklama>> getYoklama(@PathVariable("id") Long id) {
         return ResponseEntity.ok(yoklamaService.getStudentAttendance(id));
@@ -38,4 +37,13 @@ public class YoklamaController {
         return yoklamaService.getAllAttendanceInfo();
     }
 
+    @PostMapping("/yoklamaDurumu")
+    public boolean setYoklamaDurumu(@RequestBody YoklamaDto dto) {
+        return yoklamaService.setYoklamaDurumuForTeacher(dto);
+    }
+
+    @PostMapping("/getYoklamaDurumu")
+    public boolean getYoklamaDurumu(@RequestBody YoklamaDto dto) {
+        return yoklamaService.getYoklamaDurumu(dto);
+    }
 }
