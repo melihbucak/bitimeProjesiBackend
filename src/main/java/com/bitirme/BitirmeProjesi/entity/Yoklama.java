@@ -3,6 +3,8 @@ package com.bitirme.BitirmeProjesi.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @Table(name = "yoklama")
@@ -30,5 +32,11 @@ public class Yoklama {
 
     @Column(name = "yoklamaDurumu")
     private boolean yoklamaDurumu;
+
+    @Column(name = "ipAddress")
+    private String ipAddress;
+
+    @Column(name = "loginTime")
+    private LocalDateTime loginTime;
 }
 

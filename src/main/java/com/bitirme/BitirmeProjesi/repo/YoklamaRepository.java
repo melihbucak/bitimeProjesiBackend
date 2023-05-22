@@ -10,7 +10,8 @@ import java.util.Optional;
 @Repository
 public interface YoklamaRepository extends JpaRepository<Yoklama, Long> {
     List<Yoklama> findByStudentId(Long studentId);
-
+    boolean existsByIpAddress(String ipAddress);
+    List<Yoklama> findByIpAddress(String ipAddress);
     List<Yoklama> findByDersKodu_DersKodu(Long dersKodu);
 
 }

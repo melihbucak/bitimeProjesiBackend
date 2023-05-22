@@ -19,7 +19,7 @@ public class YoklamaController {
     private YoklamaService yoklamaService;
 
     @PostMapping("/yoklama")
-    public Yoklama saveYoklama(@RequestBody YoklamaDto dto) throws Exception {
+    public ResponseEntity saveYoklama(@RequestBody YoklamaDto dto) throws Exception {
         return yoklamaService.saveYoklama(dto);
     }
     @GetMapping("/{id}")
@@ -27,6 +27,7 @@ public class YoklamaController {
         return ResponseEntity.ok(yoklamaService.getStudentAttendance(id));
     }
 
+    //Teacher can make changes about student's attendance
     @PutMapping("/updateAttendance")
     public ResponseEntity updateYoklama(@RequestBody YoklamaDto dto) {
         return yoklamaService.updateAttendanceFromDto(dto);
