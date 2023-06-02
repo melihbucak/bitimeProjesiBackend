@@ -14,7 +14,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,13 +44,11 @@ public class YoklamaService {
                             stringObjectMap.put("message", "Bir başkası adına yoklama veremezsiniz");
                             return new ResponseEntity(stringObjectMap, HttpStatus.BAD_REQUEST);
                         }
-
-
                         // Eğer son giriş kaydı yok veya son girişten 30 dakikadan daha uzun süre geçtiyse
-
                         if (lastLoginTime == null || lastLoginTime.plusMinutes(1).isBefore(LocalDateTime.now())) {
                             // Öğrencinin güncel IP adresini yoklama kaydına kaydet
-                            yoklama.setDevamsizlikSayisi(yoklama.getDevamsizlikSayisi());
+//                            yoklama.setDevamsizlikSayisi(yoklama.getDevamsizlikSayisi());
+                            yoklama.setKatilimDurumu(true);
                             yoklama.setIpAddress(ipAddress);
                             yoklama.setLoginTime(LocalDateTime.now());
                             yoklamaRepository.save(yoklama);
@@ -75,9 +72,6 @@ public class YoklamaService {
         }
         return new ResponseEntity("Hatalı bir işlem gerçekleşti", HttpStatus.BAD_REQUEST);
     }
-
-
-
 
 
     public List<Yoklama> getStudentAttendance(Long id) {
@@ -111,10 +105,21 @@ public class YoklamaService {
             List<Yoklama> yoklama1 = yoklamaRepository.findByDersKodu_DersKodu(dto.getDersKodu());
             for (Yoklama yoklama : yoklama1) {
                 if (yoklama.getDersKodu().getDersKodu().equals(dto.getDersKodu())) {
-                    yoklama.setYoklamaDurumu(dto.isYoklamaDurumu());
+
+                    if (!(yoklama.isYoklamaDurumu() == dto.isYoklamaDurumu())){
+                        yoklama.setYoklamaDurumu(dto.isYoklamaDurumu());
                     yoklama.setLoginTime(null);
                     yoklama.setIpAddress(null);
+                    //eger ogrenci yoklamaya katılmamissa devamsızlık+1
+                    if (!yoklama.isKatilimDurumu()&& !dto.isYoklamaDurumu()){
+                        yoklama.setDevamsizlikSayisi(yoklama.getDevamsizlikSayisi()+1);
+                    }
+                    if (!dto.isYoklamaDurumu()){
+                        yoklama.setKatilimDurumu(false);
+                    }
                     yoklamaRepository.save(yoklama);
+                    }
+
                 }
             }
             return true;

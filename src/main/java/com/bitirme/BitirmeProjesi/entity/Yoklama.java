@@ -33,10 +33,14 @@ public class Yoklama {
     @Column(name = "yoklamaDurumu")
     private boolean yoklamaDurumu;
 
+    @Column(name = "katilimDurumu", columnDefinition = "boolean default false")
+    private boolean katilimDurumu;
+
     @Column(name = "ipAddress")
     private String ipAddress;
 
     @Column(name = "loginTime")
     private LocalDateTime loginTime;
+
 }
 
