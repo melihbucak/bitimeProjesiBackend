@@ -32,6 +32,5 @@ public class Student {
 
     @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-//    @JsonBackReference
     private User user;
 }

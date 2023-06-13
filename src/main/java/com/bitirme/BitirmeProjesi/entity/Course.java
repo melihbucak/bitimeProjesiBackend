@@ -3,6 +3,7 @@ package com.bitirme.BitirmeProjesi.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,9 +20,12 @@ public class Course {
     @Column(name = "dersAdi", unique = true, nullable = false)
     private String dersAdi;
 
-    @ManyToOne()
+    @ManyToOne
+    @JoinColumn(name = "fk_loc_id",referencedColumnName = "id") // Konum tablosunda hangi alanı referans alacaksa burada belirtin
+    private Location location;
+
+    @ManyToOne
     @JoinColumn(name = "fk_Ogretmen_Id",referencedColumnName = "id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JsonBackReference
     private Teacher teacher;
 }

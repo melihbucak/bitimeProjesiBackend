@@ -1,11 +1,8 @@
 package com.bitirme.BitirmeProjesi.service;
 
 import com.bitirme.BitirmeProjesi.dto.AdminDto;
-import com.bitirme.BitirmeProjesi.dto.TeacherDto;
 import com.bitirme.BitirmeProjesi.dtomapper.AdminDtoMapper;
-import com.bitirme.BitirmeProjesi.dtomapper.TeacherDtoMapper;
 import com.bitirme.BitirmeProjesi.entity.Admin;
-import com.bitirme.BitirmeProjesi.entity.Teacher;
 import com.bitirme.BitirmeProjesi.repo.AdminRepository;
 import org.mapstruct.factory.Mappers;
 import org.mindrot.jbcrypt.BCrypt;
@@ -46,13 +43,12 @@ public class AdminService {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             boolean result = encoder.matches(dto.getOldPassword(), dbPassword);
 
-            if(result){
+            if (result) {
                 String newPassword = dto.getNewPassword();
                 String newHashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
                 admin.setPassword(newHashedPassword);
                 admin.getUser().setPassword(newHashedPassword);
-            }
-            else{
+            } else {
                 hm.put("status", false);
                 hm.put("message", "Eski şifrenizi yanlış girdiniz");
                 return new ResponseEntity(hm, HttpStatus.BAD_REQUEST);

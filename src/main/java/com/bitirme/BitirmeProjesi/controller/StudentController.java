@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PrimitiveIterator;
 
 @RestController
 @RequestMapping("api/student")
@@ -45,8 +44,9 @@ public class StudentController {
         List<Student> studentList = studentService.getOgrenciler();
         return studentList;
     }
+
     @PutMapping("/updateStudent")
-    public ResponseEntity updateStudent(@RequestBody StudentDto dto){
+    public ResponseEntity updateStudent(@RequestBody StudentDto dto) {
         return studentService.updateStudentFromDto(dto);
     }
 

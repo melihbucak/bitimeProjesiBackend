@@ -1,10 +1,14 @@
 
 package com.bitirme.BitirmeProjesi.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -12,7 +16,9 @@ import java.util.List;
 @Entity
 @Table(name = "ogretmen")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Teacher {
     @Id
     @SequenceGenerator(name = "SEQ_ogretmen_id", sequenceName = "SEQ_ogretmen_id", allocationSize = 1)

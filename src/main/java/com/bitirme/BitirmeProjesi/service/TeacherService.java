@@ -33,6 +33,10 @@ public class TeacherService {
     @Autowired
     private StudentCourseRepository studentCourseRepository;
 
+    public TeacherService(TeacherRepository teacherRepository) {
+
+    }
+
     public List<Teacher> getTeachers() {
         return teacherRepository.findAll();
     }

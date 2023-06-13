@@ -4,6 +4,9 @@ import com.bitirme.BitirmeProjesi.dto.CourseDto;
 import com.bitirme.BitirmeProjesi.dto.StudentDto;
 import com.bitirme.BitirmeProjesi.dto.TeacherDto;
 import com.bitirme.BitirmeProjesi.entity.Course;
+import com.bitirme.BitirmeProjesi.entity.Location;
+import com.bitirme.BitirmeProjesi.repo.CourseRepository;
+import com.bitirme.BitirmeProjesi.responseDto.CourseLocationResponse;
 import com.bitirme.BitirmeProjesi.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +21,9 @@ public class CourseController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private CourseRepository courseRepository;
 
     @GetMapping("/getCourses")
     public ResponseEntity<List<Course>> getDersler() {
@@ -46,4 +52,19 @@ public class CourseController {
         return courseService.getCourseByTeacherId(id);
     }
 
+    @GetMapping("/{dersKodu}/location")
+    public ResponseEntity<CourseLocationResponse> getCourseLocation(@PathVariable Long dersKodu) {
+        Course course = courseRepository.findByDersKodu(dersKodu);
+        if (course == null) {
+            return ResponseEntity.notFound().build();
+        }
+        Location location = course.getLocation();
+        if (location == null) {
+            return ResponseEntity.notFound().build();
+        }
+        CourseLocationResponse response = new CourseLocationResponse();
+        response.setEnlem(location.getEnlem());
+        response.setBoylam(location.getBoylam());
+        return ResponseEntity.ok(response);
+    }
 }
