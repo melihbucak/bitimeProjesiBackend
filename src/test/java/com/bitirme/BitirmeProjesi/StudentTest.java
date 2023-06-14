@@ -1,9 +1,11 @@
 package com.bitirme.BitirmeProjesi;
 
-import com.bitirme.BitirmeProjesi.enums.UserType;
 import com.bitirme.BitirmeProjesi.entity.Student;
 import com.bitirme.BitirmeProjesi.entity.User;
+import com.bitirme.BitirmeProjesi.enums.UserType;
+import com.bitirme.BitirmeProjesi.repo.StudentCourseRepository;
 import com.bitirme.BitirmeProjesi.repo.StudentRepository;
+import com.bitirme.BitirmeProjesi.repo.UserRepository;
 import com.bitirme.BitirmeProjesi.service.StudentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,48 +21,58 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class StudentTest {
+
     @Mock
-    StudentRepository studentRepository;
-    StudentService studentService;
+    private StudentRepository studentRepository;
+    @Mock
+    private StudentService studentService;
+    @Mock
+    private UserRepository userRepository;
+    @Mock
+    private StudentCourseRepository studentCourseRepository;
 
     @BeforeEach
     public void init() {
         MockitoAnnotations.initMocks(this);
-        studentService = new StudentService(studentRepository);
+        studentService = new StudentService(studentRepository, userRepository, studentCourseRepository);
     }
-
-    @Test
-    void testSaveOgrenci() {
-
-        var studentToSave = Student.builder()
-                .ogrenciAdi("test")
-                .ogrenciSoyadi("test")
-                .ogrenci_TC(11111123L)
-                .ogrenci_no(1234567890l)
+    void testSaveStudent() {
+        // Öğrenci verilerini hazırla
+        Student studentToSave = Student.builder()
+                .ogrenciAdi("Test")
+                .ogrenciSoyadi("Student")
+                .ogrenci_no(1234567890L)
+                .ogrenci_TC(11111111111L)
                 .build();
 
-        var userToSave = User.builder()
-                .username("test")
-                .password("test")
+        // Kullanıcı verilerini hazırla
+        User userToSave = User.builder()
+                .username("testuser")
+                .password("testpassword")
                 .role(UserType.OGRENCI)
                 .build();
 
+        // Öğrenci ile kullanıcıyı ilişkilendir
         studentToSave.setUser(userToSave);
 
+        // Öğrenci kaydetme işlemi için sahte bir dönüş değeri tanımla
         when(studentRepository.save(any(Student.class))).thenReturn(studentToSave);
 
-        var actual = studentService.saveOgrenci(studentToSave);
+        // Öğrenci kaydetme işlemini gerçekleştir
+        Student savedStudent = studentService.saveOgrenci(studentToSave);
 
+        // Gerçekleşen işlemleri doğrula
+        assertNotNull(savedStudent);
+        assertEquals(studentToSave.getId(), savedStudent.getId());
+        assertEquals(studentToSave.getOgrenci_no(), savedStudent.getOgrenci_no());
+        assertEquals(studentToSave.getOgrenci_TC(), savedStudent.getOgrenci_TC());
+        assertEquals(studentToSave.getOgrenciAdi(), savedStudent.getOgrenciAdi());
+        assertEquals(studentToSave.getOgrenciSoyadi(), savedStudent.getOgrenciSoyadi());
 
-        assertNotNull(actual);
-        assertEquals(studentToSave.getId(),actual.getId());
-        assertEquals(studentToSave.getOgrenci_no(),actual.getOgrenci_no());
-        assertEquals(studentToSave.getOgrenci_TC(), actual.getOgrenci_TC());
-        assertEquals(studentToSave.getOgrenciAdi(),actual.getOgrenciAdi());
-        assertEquals(studentToSave.getOgrenciSoyadi(),actual.getOgrenciSoyadi());
+        assertNotEquals("testpassword", savedStudent.getUser().getPassword());
+        assertEquals(UserType.OGRENCI, savedStudent.getUser().getRole());
 
-        assertNotEquals("test", studentToSave.getUser().getPassword());
-        assertEquals(UserType.OGRENCI, studentToSave.getUser().getRole());
+        // Öğrenci kaydetme işleminin çağrıldığını doğrula
         verify(studentRepository).save(studentToSave);
     }
 }

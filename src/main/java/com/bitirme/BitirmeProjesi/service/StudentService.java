@@ -1,17 +1,13 @@
 package com.bitirme.BitirmeProjesi.service;
 
 import com.bitirme.BitirmeProjesi.dto.StudentDto;
-import com.bitirme.BitirmeProjesi.dto.TeacherDto;
 import com.bitirme.BitirmeProjesi.dtomapper.StudentDtoMapper;
-import com.bitirme.BitirmeProjesi.dtomapper.TeacherDtoMapper;
 import com.bitirme.BitirmeProjesi.entity.Student;
-import com.bitirme.BitirmeProjesi.entity.Teacher;
-import com.bitirme.BitirmeProjesi.entity.User;
 import com.bitirme.BitirmeProjesi.repo.StudentCourseRepository;
 import com.bitirme.BitirmeProjesi.repo.StudentRepository;
 import com.bitirme.BitirmeProjesi.repo.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +21,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
@@ -33,9 +30,6 @@ public class StudentService {
     @Autowired
     private StudentCourseRepository studentCourseRepository;
 
-    public StudentService(StudentRepository studentRepository) {
-
-    }
 
     public Student saveOgrenci(Student student) {
         String plainPassword = student.getUser().getPassword();

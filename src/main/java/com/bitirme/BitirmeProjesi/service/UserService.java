@@ -4,6 +4,7 @@ import com.bitirme.BitirmeProjesi.entity.User;
 import com.bitirme.BitirmeProjesi.enums.UserType;
 import com.bitirme.BitirmeProjesi.repo.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.time.LocalDateTime;
 import java.util.*;
-
+@AllArgsConstructor
 @Service
 public class UserService {
     @Autowired

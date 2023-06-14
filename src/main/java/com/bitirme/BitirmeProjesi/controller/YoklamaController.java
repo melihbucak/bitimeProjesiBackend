@@ -18,7 +18,7 @@ public class YoklamaController {
     @Autowired
     private YoklamaService yoklamaService;
 
-    @PostMapping("/yoklama")
+    @PostMapping("/saveYoklama")
     public ResponseEntity saveYoklama(@RequestBody YoklamaDto dto) throws Exception {
         return yoklamaService.saveYoklama(dto);
     }

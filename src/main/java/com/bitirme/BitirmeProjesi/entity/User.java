@@ -27,9 +27,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private UserType role;
+}
 
 //    @JsonManagedReference
 //    @OneToOne(mappedBy = "user")
 //    private Student student;
 
-}

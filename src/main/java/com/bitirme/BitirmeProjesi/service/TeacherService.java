@@ -10,6 +10,7 @@ import com.bitirme.BitirmeProjesi.repo.TeacherRepository;
 import com.bitirme.BitirmeProjesi.repo.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
+@AllArgsConstructor
 @Service
 public class TeacherService {
 
@@ -32,10 +33,6 @@ public class TeacherService {
     private CourseRepository courseRepository;
     @Autowired
     private StudentCourseRepository studentCourseRepository;
-
-    public TeacherService(TeacherRepository teacherRepository) {
-
-    }
 
     public List<Teacher> getTeachers() {
         return teacherRepository.findAll();
